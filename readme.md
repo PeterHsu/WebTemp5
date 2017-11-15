@@ -39,7 +39,7 @@ WebTemp4>ng new Frontend --skip-install --routing --style=scss
 "start": "ng serve --proxy-config proxy.conf.json",
 ```
 ## 建立Backend專案
-在WebTemp4目錄下新增Backend目錄
+在WebTemp5目錄下新增Backend目錄
 ```
 Backend>dotnet new webapi
 Backent>echo. 2>.gitignore
@@ -55,16 +55,16 @@ app.UseStaticFiles();
 ```
 ## 加入版控
 ```
-WebTemp4>git init
-WebTemp4>git add --all
-WebTemp4>git commit -m "first commit"
+WebTemp5>git init
+WebTemp5>git add --all
+WebTemp5>git commit -m "first commit"
 ```
 ## 開始建置
 ```
-WebTemp4\Fontend>npm install
-WebTemp4\Fontend>ng build --prod --aot
-WebTemp4\Backend>dotnet restore
-WebTemp4\Backend>dotnet run
+WebTemp5\Fontend>npm install
+WebTemp5\Fontend>ng build --prod --aot
+WebTemp5\Backend>dotnet restore
+WebTemp5\Backend>dotnet run
 ```
 瀏覽 http://localhost:5000/
 
