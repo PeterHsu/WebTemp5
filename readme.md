@@ -4,7 +4,7 @@
 以Angular 5及ASP.NET Core 2.0建置網站  
 ## 需要
 1. NodeJS: v8.9.0
-1. .NET Core 2.0.2
+1. .NET Core 2.0.3
 1. @angular/cli : v1.5.0
 ## 檢查
 1. $ node --version
