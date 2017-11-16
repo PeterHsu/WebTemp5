@@ -52,6 +52,16 @@ Backent>echo. 2>.gitignore
 app.UseMvc();
 app.UseDefaultFiles();
 app.UseStaticFiles();
+app.Use(async (context, next) =>
+{
+    await next();
+    if (context.Response.StatusCode == 404 && !Path.HasExtension(context.Request.Path.Value))
+    {
+        context.Request.Path = "/index.html";
+        context.Response.StatusCode = 200;
+        await next();
+    }
+});
 ```
 ## 加入版控
 ```
