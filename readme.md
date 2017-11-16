@@ -1,5 +1,5 @@
 # WebTemp5
-2017/11/07
+2017/11/16
 ## 專案目標
 以Angular 5及ASP.NET Core 2.0建置網站  
 ## 需要
@@ -14,10 +14,10 @@
 1. Visual Studio Code
 1. 安裝C#
 ## 建立專案目錄
-建立WebTemp4目錄
+建立WebTemp5目錄
 ## 建立Frontend專案
 ```
-WebTemp4>ng new Frontend --skip-install --routing --style=scss
+WebTemp5>ng new Frontend --skip-install --routing --style=scss
 ```
 刪除.git目錄
 ## 調整Frontend程式
