@@ -21,11 +21,11 @@ WebTemp5>ng new Frontend --skip-install --routing --style=scss
 ```
 刪除.git目錄
 ## 調整Frontend程式
-修改Frontend/.angular-cli.json
+修改Frontend/.angular-cli.json，為了輸出到ASP.NET Core的專案。
 ```
 "outDir": "../Backend/wwwroot",
 ```
-新增proxy.conf.json
+新增proxy.conf.json，為了Debug使用
 ```
 {
   "/api":{
@@ -34,9 +34,13 @@ WebTemp5>ng new Frontend --skip-install --routing --style=scss
   }
 }
 ```
-修改package.json
+修改package.json，為了啟用Debug
 ```
 "start": "ng serve --proxy-config proxy.conf.json",
+```
+修改index.html，為了站台不一定在Root下的問題。
+```
+<base href=".">
 ```
 ## 建立Backend專案
 在WebTemp5目錄下新增Backend目錄
@@ -47,19 +51,16 @@ Backent>echo. 2>.gitignore
 到https://www.gitignore.io/
 輸入VisualStudioCode及CSharp,執行Create, 複製內容到.gitignore
 ## 調整Backend程式
-修改Backend/Startup.cs
+修改Backend/Startup.cs，為了實現SPA設計。
 ```
 app.UseMvc();
 app.UseDefaultFiles();
 app.UseStaticFiles();
-app.Use(async (context, next) =>
+app.Run( async (context) =>
 {
-    await next();
-    if (context.Response.StatusCode == 404 && !Path.HasExtension(context.Request.Path.Value))
+    if (!Path.HasExtension(context.Request.Path.Value))
     {
-        context.Request.Path = "/index.html";
-        context.Response.StatusCode = 200;
-        await next();
+        await context.Response.SendFileAsync(Path.Combine(env.WebRootPath,"index.html"));
     }
 });
 ```
