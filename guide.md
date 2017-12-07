@@ -179,8 +179,93 @@ Logs/
 ## Frontend
 ```
 >npm install bootstrap@4.0.0-alpha.6 --save
+>npm install @progress/kendo-theme-bootstrap --save
 ```
-## 修改styles.scss
+## syles.scss
 ```
 @import "~bootstrap/scss/bootstrap";
+@import "~@progress/kendo-theme-bootstrap/scss/all";
+```
+## Grid
+```
+npm install --save @progress/kendo-angular-grid @progress/kendo-angular-dropdowns @progress/kendo-angular-inputs @progress/kendo-angular-dateinputs @progress/kendo-data-query @progress/kendo-angular-intl @progress/kendo-angular-l10n @progress/kendo-drawing @progress/kendo-angular-excel-export @angular/animations
+```
+## crud1read
+```
+>ng g component crud1read
+```
+## app.module.ts
+```cs
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { GridModule } from '@progress/kendo-angular-grid';
+
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+import { Crud1readComponent } from './crud1read/crud1read.component';
+
+@NgModule({
+  declarations: [
+    AppComponent,
+    Crud1readComponent
+  ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    BrowserAnimationsModule,
+    GridModule
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+```
+## crud1read.component.ts
+```cs
+import { Component, OnInit } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { getAllLifecycleHooks } from '@angular/compiler/src/lifecycle_reflector';
+
+@Component({
+  selector: 'app-crud1read',
+  templateUrl: './crud1read.component.html',
+  styleUrls: ['./crud1read.component.scss'],
+})
+export class Crud1readComponent implements OnInit {
+  private headers = new Headers({ 'Content-Type': 'application/json' });
+  private apiUrl = 'api/crud1';
+  public list: Array<RegionResult>;
+
+  constructor(private http: HttpClient) { }
+
+  ngOnInit() {
+    this.getList();
+  }
+
+  getList(): void {
+    this.http.get<RegionResult[]>(this.apiUrl)
+      .subscribe(list => {
+        this.list = list;
+      });
+  }
+}
+class RegionResult {
+  id: number;
+  regionDescription: string;
+}
+```
+## crud1read.component.html
+```html
+<ul>
+  <li *ngFor="let row of list"> {{row.id}}, {{row.regionDescription}} </li>
+</ul>
+<kendo-grid [data]="list" [height]="410">
+  <kendo-grid-column field="id" title="ID" width="40">
+  </kendo-grid-column>
+  <kendo-grid-column field="regionDescription" title="Description" width="250">
+  </kendo-grid-column>
+</kendo-grid>
 ```
