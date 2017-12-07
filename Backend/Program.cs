@@ -7,6 +7,8 @@ using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using Autofac.Extensions.DependencyInjection;
+using NLog.Web;
 
 namespace Backend
 {
@@ -19,7 +21,9 @@ namespace Backend
 
         public static IWebHost BuildWebHost(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
+                .ConfigureServices(services => services.AddAutofac())
                 .UseStartup<Startup>()
+                .UseNLog()
                 .Build();
     }
 }
