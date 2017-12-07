@@ -32,6 +32,7 @@ namespace Backend.Controllers
         {
             _logger.LogInformation("api/crud1, Get");
             _conn.ConnectionString = _configData.ConnectionString;
+            _logger.LogInformation(_conn.ConnectionString);
             return Ok(_conn.GetAll<RegionResult>());
         }
 

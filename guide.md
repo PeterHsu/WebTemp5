@@ -176,5 +176,11 @@ namespace Backend.Configuration
 # Logs
 Logs/
 ```
-
-
+## Frontend
+```
+>npm install bootstrap@4.0.0-alpha.6 --save
+```
+## 修改styles.scss
+```
+@import "~bootstrap/scss/bootstrap";
+```
