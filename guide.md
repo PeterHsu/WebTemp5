@@ -3,6 +3,7 @@
 ## 目標
 CRUD
 ## 環境
+```
 >dotnet add package System.Data.SQLite --version 1.0.106
 >dotnet add package Dapper --version 1.50.4
 >dotnet add package Dapper.Contrib --version 1.50.4
@@ -10,9 +11,10 @@ CRUD
 >dotnet add package Autofac.Extensions.DependencyInjection --version 4.2.0
 >dotnet add package NLog --version 4.5.0-rc02
 >dotnet add package NLog.Web.AspNetCore --version 4.5.0-rc1
+```
 ## 新增Controller
 在Controllers\新增CRUD1Controller.cs
-```
+```cs
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -61,12 +63,12 @@ namespace Backend.Controllers
 }
 ```
 ## 修改Program.cs
-```
+```cs
 using Autofac.Extensions.DependencyInjection;
 using NLog.Web;
 ```
 ...
-```
+```cs
     public static IWebHost BuildWebHost(string[] args) =>
         WebHost.CreateDefaultBuilder(args)
             .ConfigureServices(services => services.AddAutofac())
@@ -75,7 +77,7 @@ using NLog.Web;
             .Build();
 ```
 ## 新增AutofacModule.cs
-```
+```cs
 using System.Data;
 using System.Data.SqlClient;
 using Autofac;
@@ -93,11 +95,11 @@ namespace Backend
 }
 ```
 ## 修改Startup.cs
-```
+```cs
 using NLog.Web;
 ```
 ...
-```
+```cs
 public void ConfigureServices(IServiceCollection services)
 {
     services.Configure<ConfigData>(Configuration.GetSection("ConfigData"));
@@ -132,7 +134,7 @@ public void ConfigureContainer(ContainerBuilder builder)
 ```
 ## 新增組態類別
 新增Configuration/ConfigData.cs
-```
+```cs
 namespace Backend.Configuration
 {
     public class ConfigData
@@ -143,14 +145,14 @@ namespace Backend.Configuration
 ```
 ## 修改組態
 在appsettings.Development.json及appsettings.json
-```
+```json
   "ConfigData" : {
     "ConnectionString" : "data source = Northwind.sqlite"
   }
 ```
 ## 加入組態檔
 新增Config/nlog.config
-```
+```xml
 <?xml version="1.0" encoding="utf-8" ?>
 <nlog xmlns="http://www.nlog-project.org/schemas/NLog.xsd"
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
