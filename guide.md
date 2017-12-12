@@ -177,25 +177,25 @@ namespace Backend.Configuration
 Logs/
 ```
 ## Frontend
-```
->npm install bootstrap@4.0.0-alpha.6 --save
+```bat
+>npm install bootstrap@4.0.0-beta.2 --save
 >npm install @progress/kendo-theme-bootstrap --save
 ```
-## syles.scss
-```
+## styles.scss
+```ts
 @import "~bootstrap/scss/bootstrap";
 @import "~@progress/kendo-theme-bootstrap/scss/all";
 ```
 ## Grid
-```
-npm install --save @progress/kendo-angular-grid @progress/kendo-angular-dropdowns @progress/kendo-angular-inputs @progress/kendo-angular-dateinputs @progress/kendo-data-query @progress/kendo-angular-intl @progress/kendo-angular-l10n @progress/kendo-drawing @progress/kendo-angular-excel-export @angular/animations
+```bat
+>npm install --save @progress/kendo-angular-grid @progress/kendo-angular-dropdowns @progress/kendo-angular-inputs @progress/kendo-angular-dateinputs @progress/kendo-data-query @progress/kendo-angular-intl @progress/kendo-angular-l10n @progress/kendo-drawing @progress/kendo-angular-excel-export @angular/animations
 ```
 ## crud1read
-```
+```bat
 >ng g component crud1read
 ```
 ## app.module.ts
-```cs
+```ts
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
@@ -224,7 +224,7 @@ import { Crud1readComponent } from './crud1read/crud1read.component';
 export class AppModule { }
 ```
 ## crud1read.component.ts
-```cs
+```ts
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { getAllLifecycleHooks } from '@angular/compiler/src/lifecycle_reflector';
@@ -268,4 +268,28 @@ class RegionResult {
   <kendo-grid-column field="regionDescription" title="Description" width="250">
   </kendo-grid-column>
 </kendo-grid>
+```
+## app.component.html
+```html
+<div class="container">
+  <router-outlet></router-outlet>
+</div>
+```
+## app-routing.module.ts
+```ts
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
+import { Crud1readComponent} from './crud1read/crud1read.component';
+
+const routes: Routes = [
+  { path: '', redirectTo: '/crud1read', pathMatch: 'full' },
+  { path: 'crud1read', component: Crud1readComponent}
+];
+
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
+})
+export class AppRoutingModule { }
+
 ```

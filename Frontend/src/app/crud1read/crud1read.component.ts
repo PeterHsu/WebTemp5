@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { getAllLifecycleHooks } from '@angular/compiler/src/lifecycle_reflector';
 
 @Component({
@@ -8,7 +8,6 @@ import { getAllLifecycleHooks } from '@angular/compiler/src/lifecycle_reflector'
   styleUrls: ['./crud1read.component.scss'],
 })
 export class Crud1readComponent implements OnInit {
-  private headers = new Headers({ 'Content-Type': 'application/json' });
   private apiUrl = 'api/crud1';
   public list: Array<RegionResult>;
 
