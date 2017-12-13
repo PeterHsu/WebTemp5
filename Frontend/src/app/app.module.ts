@@ -7,11 +7,13 @@ import { GridModule } from '@progress/kendo-angular-grid';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { Crud1readComponent } from './crud1read/crud1read.component';
+import { HttpStatusComponent } from './http-status/http-status.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    Crud1readComponent
+    Crud1readComponent,
+    HttpStatusComponent
   ],
   imports: [
     BrowserModule,
