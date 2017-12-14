@@ -23,16 +23,56 @@ namespace Backend.Controllers
         }
 
         // GET api/HttpStatus
-        [HttpGet]
-        public IActionResult Get()
+        [HttpGet("OKText")]
+        public IActionResult GetOKText()
         {
+            // 200
             return Ok("Hello");
+        }
+        [HttpGet("OKJson")]
+        public IActionResult GetOKJson()
+        {
+            // 200
+            return Ok(new ReturnValue(){Message="Hello"});
         }
 
         [HttpGet("NoContent")]
         public IActionResult GetNoContent()
         {
+            // 204
             return NoContent();
+        }
+
+        [HttpGet("NotFound")]
+        public IActionResult GetNotFound()
+        {
+            // 404
+            return NotFound();
+        }
+
+        [HttpGet("BadRequest")]
+        public IActionResult GetBadRequest()
+        {
+            // 400
+            return BadRequest();
+        }
+
+        [HttpGet("Exception")]
+        public IActionResult GetException()
+        {
+            // 500
+            throw new Exception("Raise Error");
+        }
+
+         [HttpGet("Accepted")]
+        public IActionResult GetAccepted()
+        {
+            // 202
+            return Accepted();
+        }
+        class ReturnValue
+        {
+            public string Message { get; set; }
         }
 
     }
