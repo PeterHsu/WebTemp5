@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using ElectronNET.API;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -46,6 +47,7 @@ namespace Backend
                     await context.Response.SendFileAsync(Path.Combine(env.WebRootPath,"index.html"));
                 }
             });
+            Task.Run(async () => await Electron.WindowManager.CreateWindowAsync());
         }
     }
 }
