@@ -1,81 +1,73 @@
 # WebTemp5
-2018/02/27
+2018/03/01
 ## 專案目標
-以Angular 5及ASP.NET Core 2.0建置網站  
-## 需要
-1. NodeJS: v8.9.4
-1. .NET Core 2.1.4
-1. @angular/cli : v1.7.1
-## 檢查
-1. $ node --version
-1. $ dotnet --version
-1. $ ng --version
-## 開發工具
-1. Visual Studio Code
-1. 安裝C#
-## 建立專案目錄
-建立WebTemp5目錄
-## 建立Frontend專案
+使用Electron建立Windows程式  
+## 安裝
 ```
-WebTemp5>ng new Frontend --skip-install --routing --style=scss
+Backend>dotnet add package ElectronNET.API --version 0.0.9
 ```
-刪除.git目錄
-## 調整Frontend程式
-修改Frontend/.angular-cli.json，為了輸出到ASP.NET Core的專案。
+.csproj
 ```
-"outDir": "../Backend/wwwroot",
+<ItemGroup>
+  <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.2" />
+  <DotNetCliToolReference Include="ElectronNET.CLI" Version="0.0.9" />
+</ItemGroup>
 ```
-新增proxy.conf.json，為了Debug使用
 ```
-{
-  "/api":{
-    "target": "http://localhost:5000",
-    "secure": false
-  }
-}
+Backend>dotnet restore
 ```
-修改package.json，為了啟用Debug
+## 程式開發
+Program.cs
 ```
-"start": "ng serve --proxy-config proxy.conf.json",
-```
-修改index.html，為了站台不一定在Root下的問題。
-```
-<base href=".">
-```
-## 建立Backend專案
-在WebTemp5目錄下新增Backend目錄
-```
-Backend>dotnet new webapi
-Backent>echo. 2>.gitignore
-```
-到https://www.gitignore.io/
-輸入VisualStudioCode及CSharp,執行Create, 複製內容到.gitignore
-## 調整Backend程式
-修改Backend/Startup.cs，為了實現SPA設計。
-```
-app.UseMvc();
-app.UseDefaultFiles();
-app.UseStaticFiles();
-app.Run( async (context) =>
-{
-    if (!Path.HasExtension(context.Request.Path.Value))
-    {
-        await context.Response.SendFileAsync(Path.Combine(env.WebRootPath,"index.html"));
-    }
-});
-```
-## 加入版控
-```
-WebTemp5>git init
-WebTemp5>git add --all
-WebTemp5>git commit -m "first commit"
-```
-## 開始建置
-```
-WebTemp5\Fontend>npm install
-WebTemp5\Fontend>ng build --prod --aot
-WebTemp5\Backend>dotnet restore
-WebTemp5\Backend>dotnet run
-```
-瀏覽 http://localhost:5000/
+using ElectronNET.API;
+// ...
+public static IWebHost BuildWebHost(string[] args) =>
+    WebHost.CreateDefaultBuilder(args)
+        .UseElectron(args)
+        .UseStartup<Startup>()
+        .Build();
 
+```
+Startup.cs
+```
+using ElectronNET.API;
+// ...
+public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+{
+    if (env.IsDevelopment())
+    {
+        app.UseDeveloperExceptionPage();
+    }
+    else
+    {
+        app.UseExceptionHandler("/Home/Error");
+    }
+
+    app.UseStaticFiles();
+
+    app.UseMvc(routes =>
+    {
+        routes.MapRoute(
+            name: "default",
+            template: "{controller=Home}/{action=Index}/{id?}");
+    });
+    Task.Run(async () => await Electron.WindowManager.CreateWindowAsync());
+
+```
+## 建置
+初始
+```
+Backend>dotnet electronize init
+```
+測試
+```
+Backend>dotnet electronize start
+```
+建置
+```
+Backend>dotnet electronize build /target win
+```
+執行
+```
+Backend>./bin/desktop/ ElectronNET.Host-win32-x64/ ElectronNET.Host.exe
+```
