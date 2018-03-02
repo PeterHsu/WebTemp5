@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Serilog;
 
 namespace Backend.Controllers
 {
@@ -13,6 +14,7 @@ namespace Backend.Controllers
         [HttpGet]
         public IEnumerable<string> Get()
         {
+            Log.Information("api/Values,GET");
             return new string[] { "value1", "value2" };
         }
 

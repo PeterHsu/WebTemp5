@@ -8,6 +8,7 @@ using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using Serilog;
 
 namespace Backend
 {
@@ -22,6 +23,7 @@ namespace Backend
             WebHost.CreateDefaultBuilder(args)
                 .UseElectron(args)
                 .UseStartup<Startup>()
+                .UseSerilog((ctx,cfg)=>cfg.ReadFrom.Configuration(ctx.Configuration))
                 .Build();
     }
 }
