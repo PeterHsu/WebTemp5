@@ -295,3 +295,6 @@ __pycache__/
 .vscode/*
 
 # End of https://www.gitignore.io/api/csharp,visualstudiocode
+
+# Logs
+Logs/
