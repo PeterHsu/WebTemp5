@@ -56,11 +56,11 @@ public IEnumerable<string> Get()
 Logs/
 ```
 ## 建置
-###測試
+### 測試
 ```
 Backend>dotnet run
 ```
-###瀏覽
+### 瀏覽
 http://localhost:5000/api/values
-###檢查
+### 檢查
 應該會產生Backend/Logs/log-{Date}.txt
