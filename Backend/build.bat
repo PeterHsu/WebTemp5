@@ -1,0 +1,1 @@
+dotnet electronize build /target win
