@@ -27,6 +27,7 @@ namespace Backend
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            services.AddSignalR();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -40,6 +41,10 @@ namespace Backend
             app.UseMvc();
             app.UseDefaultFiles();
             app.UseStaticFiles();
+             app.UseSignalR(routes =>
+            {
+                routes.MapHub<TimeHub>("/time");
+            });
             app.Run( async (context) =>
             {
                 if (!Path.HasExtension(context.Request.Path.Value))
