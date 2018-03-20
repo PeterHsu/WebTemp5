@@ -22,7 +22,7 @@ namespace Backend
         public async static void SendTime()
         {
             await globalClients.All.SendAsync("send", DateTime.Now.ToLongTimeString());
-            Task.Delay(5000).GetAwaiter().GetResult();
+            Task.Delay(1000).GetAwaiter().GetResult();
             SendTime();
         }
     }

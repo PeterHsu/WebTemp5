@@ -27,6 +27,14 @@ namespace Backend
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            services.AddCors(options => {
+                options.AddPolicy("CorsPolicy",
+                    builder => builder
+                        .AllowAnyOrigin()
+                        .AllowAnyMethod()
+                        .AllowAnyHeader()
+                );
+            });
             services.AddSignalR();
         }
 
@@ -45,6 +53,7 @@ namespace Backend
             {
                 routes.MapHub<TimeHub>("/time");
             });
+            app.UseCors("CorsPolicy");
             app.Run( async (context) =>
             {
                 if (!Path.HasExtension(context.Request.Path.Value))

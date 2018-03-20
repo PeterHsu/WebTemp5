@@ -13,3 +13,13 @@ Frontend>npm install --save @aspnet/signalr
 ```
 ## 程式開發
 
+## 問題處理
+Web更新了之後Electron顯示一樣的畫面是因為有Cache  
+\<yourAppName\>為ElectronNET.Host
+Windows:  
+C:\Users\<user>\AppData\Roaming\<yourAppName>\Cache  
+Linux:  
+/home/<user>/.config/<yourAppName>/Cache  
+OS X:  
+/Users/<user>/Library/Application Support/<yourAppName>/Cache  
+
